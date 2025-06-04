@@ -6,6 +6,9 @@
       <list>
         <option value="$PROJECT_DIR$/Service/Driver-service/pom.xml" />
         <option value="$PROJECT_DIR$/Service/Load-service/pom.xml" />
+        <option value="$PROJECT_DIR$/Service/config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/Service/gateway-service/pom.xml" />
+        <option value="$PROJECT_DIR$/Service/service-registry/pom.xml" />
       </list>
     </option>
   </component>
