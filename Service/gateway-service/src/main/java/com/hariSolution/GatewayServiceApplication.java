@@ -1,13 +1,13 @@
-package com.hariSolutions.Load_service;
+package com.hariSolution;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LoadServiceApplication {
+public class GatewayServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LoadServiceApplication.class, args);
+		SpringApplication.run(GatewayServiceApplication.class, args);
 	}
 
 }

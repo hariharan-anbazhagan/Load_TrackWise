@@ -1,10 +1,10 @@
-package com.hariSolutions.Load_service;
+package com.hariSolution;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LoadServiceApplicationTests {
+class GatewayServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

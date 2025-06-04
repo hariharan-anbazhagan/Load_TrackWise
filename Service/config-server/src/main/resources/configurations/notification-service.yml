@@ -1,0 +1,86 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/notification  # Ensure PostgreSQL is running on port 5434
+    username: postgres
+    password: harianbu@3
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+
+  application:
+    name: notification-service
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # Use 'update' only for development
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8088
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        register-health-indicator: true
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-window-type: COUNT_BASED
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+    instances:
+      notification-service:
+        base-config: default
+        sliding-window-size: 20
+        failure-rate-threshold: 40
+        wait-duration-in-open-state: 15s
+
+kafka:
+  consumer:
+    bootstrap-servers: localhost:9092
+    auto-offset-reset: earliest
+    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    properties:
+      spring.json.trusted.packages: "*"
+
+---
+# Profile-specific configuration for Order Consumer
+spring:
+  config:
+    activate:
+      on-profile: order-consumer
+
+kafka:
+  consumer:
+    group-id: orderGroup
+    properties:
+      spring.json.type.mapping: "orderConfirmation:com.hariSolution.kafkaOrder.order.OrderConfirmation"
+
+---
+# Profile-specific configuration for Payment Consumer
+spring:
+  config:
+    activate:
+      on-profile: payment-consumer
+
+kafka:
+  consumer:
+    group-id: paymentGroup
+    properties:
+      spring.json.type.mapping: "paymentConfirmation:com.hariSolution.payment.PaymentConfirmation"

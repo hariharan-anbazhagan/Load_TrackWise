@@ -1,0 +1,25 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+name:
+  value: Load_TW.in
+
+spring:
+  cloud:
+    config:
+      override-system-properties: false
+
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 5000ms  # Connection timeout in milliseconds
+    ssl: true
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
